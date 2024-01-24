@@ -1,7 +1,7 @@
-import * as THREE from 'three'
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import GUI from 'lil-gui'
+import * as THREE from "three";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+import GUI from "lil-gui";
 import gsap from "gsap";
 
 /**
@@ -67,7 +67,7 @@ cube.add(frontFace);
 
 const backFace = new THREE.Mesh(
   new THREE.PlaneGeometry(2, 1),
-  new THREE.MeshBasicMaterial({ color: 0x00ffff, side: THREE.DoubleSide })
+  new THREE.MeshBasicMaterial({ color: 0xffff, side: THREE.DoubleSide })
 );
 backFace.position.y = -0.5;
 backFace.position.z = -1.5;
@@ -92,10 +92,10 @@ scene.add(cinemaTicket);
 // CinemaTicket2
 
 // gltfLoader.load('./assets/ticket.gltf', function (gltf) {
-//     ticket = gltf.scene;  
+//     ticket = gltf.scene;
 //     ticket.scale.set(2, 2, 2);
 //     ticket.position.y = 4;
-    
+
 //     scene.add(ticket);
 // });
 
@@ -117,6 +117,7 @@ scene.add(cinemaTicket);
 //         console.log(error)
 //     }
 // )
+
 /**
  * Sizes
  */
@@ -164,10 +165,6 @@ scene.add(camera);
 
 //Animate
 
-gsap.to(camera.position, { duration: 1.5, delay: 0, z: 1.5 });
-gsap.to(camera.position, { duration: 0.8, delay: 0, y: 3.5 });
-// gsap.to(camera.rotation, { duration: 1, delay: 0, x: -Math.PI * 0.25 });
-
 /**
  * Renderer
  */
@@ -178,6 +175,7 @@ renderer.setSize(sizes.width, sizes.height);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
 const clock = new THREE.Clock();
+let currentIntersect = null;
 
 function animate() {
   const elapsedTime = clock.getElapsedTime();

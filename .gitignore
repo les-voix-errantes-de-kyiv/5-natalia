@@ -1,0 +1,17 @@
+/node_modules
+
+lib-cov
+lcov.info
+pids
+logs
+results
+node_modules
+.node_history
+
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+.Spotlight-V100
+.Trashes
+._*

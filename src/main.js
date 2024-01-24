@@ -164,8 +164,8 @@ scene.add(camera);
 
 //Animate
 
-gsap.to(camera.position, { duration: 4, delay: 0, z: 2 });
-gsap.to(camera.position, { duration: 4, delay: 0, y: 3 });
+gsap.to(camera.position, { duration: 1.5, delay: 0, z: 1.5 });
+gsap.to(camera.position, { duration: 0.8, delay: 0, y: 3.5 });
 // gsap.to(camera.rotation, { duration: 1, delay: 0, x: -Math.PI * 0.25 });
 
 /**

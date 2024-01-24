@@ -1,6 +1,7 @@
-import * as THREE from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
-import GUI from "lil-gui";
+import * as THREE from 'three'
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import GUI from 'lil-gui'
 import gsap from "gsap";
 
 /**
@@ -14,6 +15,9 @@ const canvas = document.querySelector("canvas.webgl");
 
 // Scene
 const scene = new THREE.Scene();
+
+// GLTFLoader
+const gltfLoader = new GLTFLoader();
 
 /**
  * Textures
@@ -85,6 +89,34 @@ cinemaTicket.rotation.x = Math.PI / 2 + 0.3;
 
 scene.add(cinemaTicket);
 
+// CinemaTicket2
+
+gltfLoader.load('./assets/ticket.gltf', function (gltf) {
+    ticket = gltf.scene;  
+    ticket.scale.set(2, 2, 2);
+    ticket.position.y = 4;
+    
+    scene.add(ticket);
+});
+
+gltfLoader.load(
+    '/assets/ticket.gltf',
+    (gltf) =>
+    {
+        console.log('success')
+        console.log(gltf)
+    },
+    (progress) =>
+    {
+        console.log('progress')
+        console.log(progress)
+    },
+    (error) =>
+    {
+        console.log('error')
+        console.log(error)
+    }
+)
 /**
  * Sizes
  */

@@ -65,6 +65,7 @@ gltfLoader.load(
 const ambientLight = new THREE.AmbientLight(0xffffff, 10);
 scene.add(ambientLight);
 
+
 /**
  * Sizes
  */

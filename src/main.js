@@ -1,6 +1,7 @@
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js'
 import GUI from 'lil-gui'
 import gsap from "gsap";
 
@@ -17,106 +18,53 @@ const canvas = document.querySelector("canvas.webgl");
 const scene = new THREE.Scene();
 
 // GLTFLoader
-const gltfLoader = new GLTFLoader();
+
+/**
+ * Models
+ */
+
+const gltfLoader = new GLTFLoader()
+
+gltfLoader.load(
+    '/models/ticket.glb',
+    (gltf) =>
+    {
+        gltf.scene.position.set(3, -1.1, -1)
+        gltf.scene.rotation.y = Math.PI * - 0.5 + 0.5;
+        scene.add(gltf.scene)
+    },
+)
+
+gltfLoader.load(
+    '/models/suitcaseV4.glb',
+    (gltf) =>
+    {
+        gltf.scene.scale.set(5, 5, 5)
+        gltf.scene.position.set(0, 0, 0)
+        gltf.scene.rotation.y = Math.PI * - 0.5;
+        scene.add(gltf.scene)
+    },
+)
 
 /**
  * Textures
  */
 
+
+// add texture in 
+
 /**
  * Object
  */
 
-const cube = new THREE.Group();
-scene.add(cube);
 
-// Cube
-const leftFace = new THREE.Mesh(
-  new THREE.PlaneGeometry(3, 1),
-  new THREE.MeshBasicMaterial({ color: 0xff0000, side: THREE.DoubleSide })
-);
-leftFace.position.x = -1;
-leftFace.position.y = -0.5;
-leftFace.rotation.y = Math.PI / 2;
-cube.add(leftFace);
+/**
+ * Lights
+ */
 
-const rightFace = new THREE.Mesh(
-  new THREE.PlaneGeometry(3, 1),
-  new THREE.MeshBasicMaterial({ color: 0x00ff00, side: THREE.DoubleSide })
-);
-rightFace.position.x = 1;
-rightFace.position.y = -0.5;
-rightFace.rotation.y = Math.PI / 2;
-cube.add(rightFace);
+const ambientLight = new THREE.AmbientLight(0xffffff, 10);
+scene.add(ambientLight);
 
-const bottomFace = new THREE.Mesh(
-  new THREE.PlaneGeometry(2, 3),
-  new THREE.MeshBasicMaterial({ color: 0xffff00, side: THREE.DoubleSide })
-);
-bottomFace.rotation.x = Math.PI / 2;
-bottomFace.position.y = -1;
-cube.add(bottomFace);
-
-const frontFace = new THREE.Mesh(
-  new THREE.PlaneGeometry(2, 1),
-  new THREE.MeshBasicMaterial({ color: 0xff00ff, side: THREE.DoubleSide })
-);
-frontFace.position.y = -0.5;
-frontFace.position.z = 1.5;
-cube.add(frontFace);
-
-const backFace = new THREE.Mesh(
-  new THREE.PlaneGeometry(2, 1),
-  new THREE.MeshBasicMaterial({ color: 0x00ffff, side: THREE.DoubleSide })
-);
-backFace.position.y = -0.5;
-backFace.position.z = -1.5;
-cube.add(backFace);
-
-cube.rotation.y = Math.PI * 0.5;
-
-// CinemaTicket
-
-const cinemaTicket = new THREE.Mesh(
-  new THREE.PlaneGeometry(0.5, 1),
-  new THREE.MeshBasicMaterial({ color: 0x000000, side: THREE.DoubleSide })
-);
-
-cinemaTicket.position.x = 0.2;
-cinemaTicket.position.y = -0.4;
-cinemaTicket.position.z = 0.3;
-cinemaTicket.rotation.x = Math.PI / 2 + 0.3;
-
-scene.add(cinemaTicket);
-
-// CinemaTicket2
-
-// gltfLoader.load('./assets/ticket.gltf', function (gltf) {
-//     ticket = gltf.scene;  
-//     ticket.scale.set(2, 2, 2);
-//     ticket.position.y = 4;
-    
-//     scene.add(ticket);
-// });
-
-// gltfLoader.load(
-//     '/assets/ticket.gltf',
-//     (gltf) =>
-//     {
-//         console.log('success')
-//         console.log(gltf)
-//     },
-//     (progress) =>
-//     {
-//         console.log('progress')
-//         console.log(progress)
-//     },
-//     (error) =>
-//     {
-//         console.log('error')
-//         console.log(error)
-//     }
-// )
 /**
  * Sizes
  */
@@ -159,13 +107,13 @@ camera.position.z = 7;
 scene.add(camera);
 
 // Controls
-// const controls = new OrbitControls(camera, canvas);
-// controls.enableDamping = true;
+const controls = new OrbitControls(camera, canvas);
+controls.enableDamping = true;
 
 //Animate
 
-gsap.to(camera.position, { duration: 4, delay: 0, z: 2 });
-gsap.to(camera.position, { duration: 4, delay: 0, y: 3 });
+// gsap.to(camera.position, { duration: 4, delay: 0, z: 2 });
+// gsap.to(camera.position, { duration: 4, delay: 0, y: 3 });
 // gsap.to(camera.rotation, { duration: 1, delay: 0, x: -Math.PI * 0.25 });
 
 /**
@@ -182,7 +130,7 @@ const clock = new THREE.Clock();
 function animate() {
   const elapsedTime = clock.getElapsedTime();
 
-  camera.lookAt(cube.position);
+  // camera.lookAt(cube.position);
 
   renderer.render(scene, camera);
 

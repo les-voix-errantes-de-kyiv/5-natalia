@@ -112,10 +112,6 @@ controls.enableDamping = true;
 
 //Animate
 
-gsap.to(camera.position, { duration: 1.5, delay: 0, z: 1.5 });
-gsap.to(camera.position, { duration: 0.8, delay: 0, y: 3.5 });
-// gsap.to(camera.rotation, { duration: 1, delay: 0, x: -Math.PI * 0.25 });
-
 /**
  * Renderer
  */
@@ -126,6 +122,7 @@ renderer.setSize(sizes.width, sizes.height);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
 const clock = new THREE.Clock();
+let currentIntersect = null;
 
 function animate() {
   const elapsedTime = clock.getElapsedTime();

@@ -91,32 +91,32 @@ scene.add(cinemaTicket);
 
 // CinemaTicket2
 
-gltfLoader.load('./assets/ticket.gltf', function (gltf) {
-    ticket = gltf.scene;  
-    ticket.scale.set(2, 2, 2);
-    ticket.position.y = 4;
+// gltfLoader.load('./assets/ticket.gltf', function (gltf) {
+//     ticket = gltf.scene;  
+//     ticket.scale.set(2, 2, 2);
+//     ticket.position.y = 4;
     
-    scene.add(ticket);
-});
+//     scene.add(ticket);
+// });
 
-gltfLoader.load(
-    '/assets/ticket.gltf',
-    (gltf) =>
-    {
-        console.log('success')
-        console.log(gltf)
-    },
-    (progress) =>
-    {
-        console.log('progress')
-        console.log(progress)
-    },
-    (error) =>
-    {
-        console.log('error')
-        console.log(error)
-    }
-)
+// gltfLoader.load(
+//     '/assets/ticket.gltf',
+//     (gltf) =>
+//     {
+//         console.log('success')
+//         console.log(gltf)
+//     },
+//     (progress) =>
+//     {
+//         console.log('progress')
+//         console.log(progress)
+//     },
+//     (error) =>
+//     {
+//         console.log('error')
+//         console.log(error)
+//     }
+// )
 /**
  * Sizes
  */

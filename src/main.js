@@ -97,23 +97,6 @@ gltfLoader.load("/models/pyramid.glb", (gltf) => {
  * Object
  */
 
-const plane = new THREE.Mesh(
-  new THREE.PlaneGeometry(10, 6.5),
-  new THREE.MeshBasicMaterial({ color: 0x00ff00 })
-);
-plane.position.y = -1.2;
-plane.rotation.x = -Math.PI * 0.5;
-scene.add(plane);
-
-// const plane2 = new THREE.Mesh(
-//   new THREE.PlaneGeometry(1, 2),
-//   new THREE.MeshBasicMaterial({ color: 0x000000 })
-// );
-// plane.position.y = -1;
-// gui.add(plane2.position, "x").min(-4).max(4).step(0.01).name("plane2X");
-// gui.add(plane2.position, "z").min(-4).max(4).step(0.01).name("plane2Z");
-
-// scene.add(plane2);
 /**
  * Lights
  */
@@ -278,7 +261,6 @@ function animate() {
     else{
       currentPyramid = null;
     }
-
 
   }
 

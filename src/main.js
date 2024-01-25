@@ -1,7 +1,6 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
-import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
 import GUI from "lil-gui";
 import gsap from "gsap";
 
@@ -13,6 +12,15 @@ import gsap from "gsap";
 
 // Canvas
 const canvas = document.querySelector("canvas.webgl");
+
+// Pop up
+const popup = document.querySelector(".popUp");
+const close = document.querySelector(".exit");
+
+let popupContent= document.createElement("p");
+popupContent.innerHTML = 
+"Ce ticket de cinéma témoigne de mon passé en Ukraine, un souvenir que j'ai emporté avec moi en fuyant la guerre. Avant à Kyiv , que ce soit en compagnie de proches ou seul, j'adorais m'y rendre. <br> <br>This cinema ticket bears witness to my past in Ukraine, a memory that I took with me when fleeing the war. Before in Kyiv, whether in the company of loved ones or alone, I loved going there.";
+
 
 // Scene
 const scene = new THREE.Scene();
@@ -91,7 +99,6 @@ gltfLoader.load("/models/pyramid.glb", (gltf) => {
  * Textures
  */
 
-// add texture in
 
 /**
  * Object
@@ -136,6 +143,8 @@ let currentLipstick;
 let currentMusicbox;
 let currentPyramid;
 
+console.log(currentTicket);
+
 
 window.addEventListener("mousemove", (event) => {
   mouse.x = (event.clientX / sizes.width) * 2 - 1;
@@ -148,15 +157,21 @@ window.addEventListener("click", () => {
     gsap.to(camera.position, { duration: 0.8, delay: 0, y: 8 });
   }
   if (currentTicket) {
+    popup.classList.add("active");
+    popup.appendChild(popupContent);
+
     gsap.to(ticket.position, { duration: 0.8, delay: 0, x: -0.5 });
     gsap.to(ticket.position, { duration: 0.8, delay: 0, y: 6 });
     gsap.to(ticket.position, { duration: 0.8, delay: 0, z: 3.5 });
     gsap.to(ticket.rotation, { duration: 0.8, delay: 0, y: 0 });
   }
+
   if(currentLeaf){
     console.log("leaf");
   }
-  if(currentLipstick){
+  if(currentLipstick){    
+    popup.classList.add("active");
+
     console.log("lipstick");
   }
   if(currentMusicbox){
@@ -165,6 +180,19 @@ window.addEventListener("click", () => {
   if(currentPyramid){
     console.log("pyramid");
   }
+});
+
+close.addEventListener("click", () => {
+
+  if(currentTicket){
+  currentTicket = null;
+  popup.classList.remove("active");
+  gsap.to(ticket.position, { duration: 1, delay: 0, x: 3 });
+  gsap.to(ticket.position, { duration: 1, delay: 0, y: -1.1 });
+  gsap.to(ticket.position, { duration: 1, delay: 0, z: -2 });
+  gsap.to(ticket.rotation, { duration: 1, delay: 0, y: Math.PI * -0.5 + 0.5 });
+  }
+
 });
 
 /**
@@ -187,8 +215,8 @@ camera.position.z = 20;
 scene.add(camera);
 
 // Controls
-const controls = new OrbitControls(camera, canvas);
-controls.enableDamping = true;
+// const controls = new OrbitControls(camera, canvas);
+// controls.enableDamping = true;
 
 //Animate
 

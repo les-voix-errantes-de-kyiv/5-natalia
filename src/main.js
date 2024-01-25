@@ -17,10 +17,9 @@ const canvas = document.querySelector("canvas.webgl");
 const popup = document.querySelector(".popUp");
 const close = document.querySelector(".exit");
 
-let popupContent= document.createElement("p");
-popupContent.innerHTML = 
-"Ce ticket de cinéma témoigne de mon passé en Ukraine, un souvenir que j'ai emporté avec moi en fuyant la guerre. Avant à Kyiv , que ce soit en compagnie de proches ou seul, j'adorais m'y rendre. <br> <br>This cinema ticket bears witness to my past in Ukraine, a memory that I took with me when fleeing the war. Before in Kyiv, whether in the company of loved ones or alone, I loved going there.";
-
+let popupContent = document.createElement("p");
+popupContent.innerHTML =
+  "Ce ticket de cinéma témoigne de mon passé en Ukraine, un souvenir que j'ai emporté avec moi en fuyant la guerre. Avant à Kyiv , que ce soit en compagnie de proches ou seul, j'adorais m'y rendre. <br> <br>This cinema ticket bears witness to my past in Ukraine, a memory that I took with me when fleeing the war. Before in Kyiv, whether in the company of loved ones or alone, I loved going there.";
 
 // Scene
 const scene = new THREE.Scene();
@@ -68,7 +67,7 @@ gltfLoader.load("/models/leaf.glb", (gltf) => {
 gltfLoader.load("/models/lipstick.glb", (gltf) => {
   gltf.scene.scale.set(0.4, 0.4, 0.4);
   gltf.scene.position.set(-4, -1.2, -0.8);
-  gltf.scene.rotation.y = Math.PI * -0.5 +0.2;
+  gltf.scene.rotation.y = Math.PI * -0.5 + 0.2;
   lipstick = gltf.scene;
 
   scene.add(lipstick);
@@ -79,7 +78,6 @@ gltfLoader.load("/models/musicbox.glb", (gltf) => {
   gltf.scene.position.set(0, -1.1, 0);
   gltf.scene.rotation.y = Math.PI * 0.5 - 0.2;
   musicbox = gltf.scene;
-
 
   scene.add(musicbox);
 });
@@ -93,12 +91,9 @@ gltfLoader.load("/models/pyramid.glb", (gltf) => {
   scene.add(pyramid);
 });
 
-
-
 /**
  * Textures
  */
-
 
 /**
  * Object
@@ -143,8 +138,9 @@ let currentLipstick;
 let currentMusicbox;
 let currentPyramid;
 
-console.log(currentTicket);
+let objectActive = false;
 
+console.log(currentTicket);
 
 window.addEventListener("mousemove", (event) => {
   mouse.x = (event.clientX / sizes.width) * 2 - 1;
@@ -156,7 +152,9 @@ window.addEventListener("click", () => {
     gsap.to(camera.position, { duration: 1, delay: 0, z: 5 });
     gsap.to(camera.position, { duration: 0.8, delay: 0, y: 8 });
   }
+
   if (currentTicket) {
+    objectActive = true;
     popup.classList.add("active");
     popup.appendChild(popupContent);
 
@@ -165,34 +163,54 @@ window.addEventListener("click", () => {
     gsap.to(ticket.position, { duration: 0.8, delay: 0, z: 3.5 });
     gsap.to(ticket.rotation, { duration: 0.8, delay: 0, y: 0 });
   }
+  if (currentLeaf && !objectActive) {
+    objectActive = true;
 
-  if(currentLeaf){
-    console.log("leaf");
+    gsap.to(leaf.position, { duration: 0.8, delay: 0, x: 0 });
+    gsap.to(leaf.position, { duration: 0.8, delay: 0, y: 6 });
+    gsap.to(leaf.position, { duration: 0.8, delay: 0, z: 3.5 });
+    gsap.to(leaf.rotation, { duration: 0.8, delay: 0, y: 0 });
   }
-  if(currentLipstick){    
-    popup.classList.add("active");
+  if (currentLipstick && !objectActive) {
+    objectActive = true;
 
-    console.log("lipstick");
+    gsap.to(lipstick.position, { duration: 0.8, delay: 0, x: 0.5 });
+    gsap.to(lipstick.position, { duration: 0.8, delay: 0, y: 5 });
+    gsap.to(lipstick.position, { duration: 0.8, delay: 0, z: 3.5 });
+    gsap.to(lipstick.rotation, { duration: 0.8, delay: 0, y: 0 });
   }
-  if(currentMusicbox){
-    console.log("musicbox");
+  if (currentMusicbox && !objectActive) {
+    objectActive = true;
+
+    gsap.to(musicbox.position, { duration: 0.8, delay: 0, x: 0 });
+    gsap.to(musicbox.position, { duration: 0.8, delay: 0, y: 4 });
+    gsap.to(musicbox.position, { duration: 0.8, delay: 0, z: 3 });
+    gsap.to(musicbox.rotation, { duration: 0.8, delay: 0, y: 0 });
   }
-  if(currentPyramid){
-    console.log("pyramid");
+  if (currentPyramid && !objectActive) {
+    objectActive = true;
+
+    gsap.to(pyramid.position, { duration: 0.8, delay: 0, x: -6.5 });
+    gsap.to(pyramid.position, { duration: 0.8, delay: 0, y: 6 });
+    gsap.to(pyramid.position, { duration: 0.8, delay: 0, z: 3.5 });
+    gsap.to(pyramid.rotation, { duration: 0.8, delay: 0, y: 0 });
   }
 });
 
 close.addEventListener("click", () => {
-
-  if(currentTicket){
-  currentTicket = null;
-  popup.classList.remove("active");
-  gsap.to(ticket.position, { duration: 1, delay: 0, x: 3 });
-  gsap.to(ticket.position, { duration: 1, delay: 0, y: -1.1 });
-  gsap.to(ticket.position, { duration: 1, delay: 0, z: -2 });
-  gsap.to(ticket.rotation, { duration: 1, delay: 0, y: Math.PI * -0.5 + 0.5 });
+  if (currentTicket) {
+    currentTicket = null;
+    objectActive = false;
+    popup.classList.remove("active");
+    gsap.to(ticket.position, { duration: 1, delay: 0, x: 3 });
+    gsap.to(ticket.position, { duration: 1, delay: 0, y: -1.1 });
+    gsap.to(ticket.position, { duration: 1, delay: 0, z: -2 });
+    gsap.to(ticket.rotation, {
+      duration: 1,
+      delay: 0,
+      y: Math.PI * -0.5 + 0.5,
+    });
   }
-
 });
 
 /**
@@ -249,7 +267,6 @@ function animate() {
     const lipstickInter = raycaster.intersectObject(lipstick);
     const musicboxInter = raycaster.intersectObject(musicbox);
     const pyramidInter = raycaster.intersectObject(pyramid);
-  
 
     if (valiseInter.length) {
       currentValise = valiseInter[0];
@@ -271,25 +288,21 @@ function animate() {
 
     if (lipstickInter.length) {
       currentLipstick = lipstickInter[0];
-    }
-    else{
+    } else {
       currentLipstick = null;
     }
 
     if (musicboxInter.length) {
       currentMusicbox = musicboxInter[0];
-    }
-    else{
+    } else {
       currentMusicbox = null;
     }
 
     if (pyramidInter.length) {
       currentPyramid = pyramidInter[0];
-    }
-    else{
+    } else {
       currentPyramid = null;
     }
-
   }
 
   renderer.render(scene, camera);

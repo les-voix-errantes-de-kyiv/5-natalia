@@ -9,7 +9,7 @@ import gsap from "gsap";
  * Base
  */
 // Debug
-const gui = new GUI();
+// const gui = new GUI();
 
 // Canvas
 const canvas = document.querySelector("canvas.webgl");
@@ -165,7 +165,10 @@ window.addEventListener("click", () => {
     gsap.to(camera.position, { duration: 0.8, delay: 0, y: 8 });
   }
   if (currentTicket) {
-    console.log("ticket ouvert");
+    gsap.to(ticket.position, { duration: 0.8, delay: 0, x: -0.5 });
+    gsap.to(ticket.position, { duration: 0.8, delay: 0, y: 6 });
+    gsap.to(ticket.position, { duration: 0.8, delay: 0, z: 3.5 });
+    gsap.to(ticket.rotation, { duration: 0.8, delay: 0, y: 0 });
   }
   if(currentLeaf){
     console.log("leaf");

@@ -140,8 +140,6 @@ let currentPyramid;
 
 let objectActive = false;
 
-console.log(currentTicket);
-
 window.addEventListener("mousemove", (event) => {
   mouse.x = (event.clientX / sizes.width) * 2 - 1;
   mouse.y = -((event.clientY / sizes.height) * 2 - 1);
@@ -153,7 +151,7 @@ window.addEventListener("click", () => {
     gsap.to(camera.position, { duration: 0.8, delay: 0, y: 8 });
   }
 
-  if (currentTicket) {
+  if (currentTicket && !objectActive && camera.position.y === 8) {
     objectActive = true;
     popup.classList.add("active");
     popup.appendChild(popupContent);
@@ -163,32 +161,43 @@ window.addEventListener("click", () => {
     gsap.to(ticket.position, { duration: 0.8, delay: 0, z: 3.5 });
     gsap.to(ticket.rotation, { duration: 0.8, delay: 0, y: 0 });
   }
-  if (currentLeaf && !objectActive) {
+  if (currentLeaf && !objectActive && camera.position.y === 8) {
     objectActive = true;
+    popup.classList.add("active");
+    popup.appendChild(popupContent);
 
     gsap.to(leaf.position, { duration: 0.8, delay: 0, x: 0 });
     gsap.to(leaf.position, { duration: 0.8, delay: 0, y: 6 });
     gsap.to(leaf.position, { duration: 0.8, delay: 0, z: 3.5 });
     gsap.to(leaf.rotation, { duration: 0.8, delay: 0, y: 0 });
+
+    console.log(currentLeaf);
+
   }
   if (currentLipstick && !objectActive) {
     objectActive = true;
+    popup.classList.add("active");
+    popup.appendChild(popupContent);
 
     gsap.to(lipstick.position, { duration: 0.8, delay: 0, x: 0.5 });
     gsap.to(lipstick.position, { duration: 0.8, delay: 0, y: 5 });
     gsap.to(lipstick.position, { duration: 0.8, delay: 0, z: 3.5 });
     gsap.to(lipstick.rotation, { duration: 0.8, delay: 0, y: 0 });
   }
-  if (currentMusicbox && !objectActive) {
+  if (currentMusicbox && !objectActive && camera.position.y === 8) {
     objectActive = true;
+    popup.classList.add("active");
+    popup.appendChild(popupContent);
 
     gsap.to(musicbox.position, { duration: 0.8, delay: 0, x: 0 });
     gsap.to(musicbox.position, { duration: 0.8, delay: 0, y: 4 });
     gsap.to(musicbox.position, { duration: 0.8, delay: 0, z: 3 });
     gsap.to(musicbox.rotation, { duration: 0.8, delay: 0, y: 0 });
   }
-  if (currentPyramid && !objectActive) {
+  if (currentPyramid && !objectActive && camera.position.y === 8) {
     objectActive = true;
+    popup.classList.add("active");
+    popup.appendChild(popupContent);
 
     gsap.to(pyramid.position, { duration: 0.8, delay: 0, x: -6.5 });
     gsap.to(pyramid.position, { duration: 0.8, delay: 0, y: 6 });
@@ -211,6 +220,44 @@ close.addEventListener("click", () => {
       y: Math.PI * -0.5 + 0.5,
     });
   }
+  if (currentLeaf) {
+    console.log("leaf");
+    // currentLeaf = null;
+    // objectActive = false;
+    // popup.classList.remove("active");
+    // gsap.to(leaf.position, { duration: 1, delay: 0, x: 3 });
+    // gsap.to(leaf.position, { duration: 1, delay: 0, y: -1.1 });
+    // gsap.to(leaf.position, { duration: 1, delay: 0, z: 1.2 });
+    // gsap.to(leaf.rotation, { duration: 1, delay: 0, y: Math.PI * -0.5 });
+  }
+  // if (currentLipstick) {
+  //   currentLipstick = null;
+  //   objectActive = false;
+  //   popup.classList.remove("active");
+  //   gsap.to(lipstick.position, { duration: 1, delay: 0, x: -4 });
+  //   gsap.to(lipstick.position, { duration: 1, delay: 0, y: -1.2 });
+  //   gsap.to(lipstick.position, { duration: 1, delay: 0, z: -0.8 });
+  //   gsap.to(lipstick.rotation, { duration: 1, delay: 0, y: Math.PI * -0.5 + 0.2 });
+  // }
+  // if (currentMusicbox) {
+  //   currentMusicbox = null;
+  //   objectActive = false;
+  //   popup.classList.remove("active");
+
+  //   gsap.to(musicbox.position, { duration: 1, delay: 0, x: 0 });
+  //   gsap.to(musicbox.position, { duration: 1, delay: 0, y: -1.1 });
+  //   gsap.to(musicbox.position, { duration: 1, delay: 0, z: 0 });
+  //   gsap.to(musicbox.rotation, { duration: 1, delay: 0, y: Math.PI * 0.5 - 0.2 });
+  // }
+  // if (currentPyramid) {
+  //   currentPyramid = null;
+  //   objectActive = false;
+  //   popup.classList.remove("active");
+  //   gsap.to(pyramid.position, { duration: 1, delay: 0, x: -13.5 });
+  //   gsap.to(pyramid.position, { duration: 1, delay: 0, y: 8.5 });
+  //   gsap.to(pyramid.position, { duration: 1, delay: 0, z: -0.5 });
+  //   gsap.to(pyramid.rotation, { duration: 1, delay: 0, y: Math.PI * 0.5 - 0.2 });
+  // }
 });
 
 /**

@@ -138,7 +138,7 @@ let currentLipstick;
 let currentMusicbox;
 let currentPyramid;
 
-let objectActive = false;
+let objectActive = true;
 
 window.addEventListener("mousemove", (event) => {
   mouse.x = (event.clientX / sizes.width) * 2 - 1;
@@ -151,8 +151,8 @@ window.addEventListener("click", () => {
     gsap.to(camera.position, { duration: 0.8, delay: 0, y: 8 });
   }
 
-  if (currentTicket && !objectActive && camera.position.y === 8) {
-    objectActive = true;
+  if (currentTicket && objectActive) {
+    objectActive = false;
     popup.classList.add("active");
     popup.appendChild(popupContent);
 
@@ -161,8 +161,8 @@ window.addEventListener("click", () => {
     gsap.to(ticket.position, { duration: 0.8, delay: 0, z: 3.5 });
     gsap.to(ticket.rotation, { duration: 0.8, delay: 0, y: 0 });
   }
-  if (currentLeaf && !objectActive && camera.position.y === 8) {
-    objectActive = true;
+  if (currentLeaf && objectActive) {
+    objectActive = false;
     popup.classList.add("active");
     popup.appendChild(popupContent);
 
@@ -172,10 +172,9 @@ window.addEventListener("click", () => {
     gsap.to(leaf.rotation, { duration: 0.8, delay: 0, y: 0 });
 
     console.log(currentLeaf);
-
   }
-  if (currentLipstick && !objectActive) {
-    objectActive = true;
+  if (currentLipstick && objectActive) {
+    objectActive = false;
     popup.classList.add("active");
     popup.appendChild(popupContent);
 
@@ -184,8 +183,8 @@ window.addEventListener("click", () => {
     gsap.to(lipstick.position, { duration: 0.8, delay: 0, z: 3.5 });
     gsap.to(lipstick.rotation, { duration: 0.8, delay: 0, y: 0 });
   }
-  if (currentMusicbox && !objectActive && camera.position.y === 8) {
-    objectActive = true;
+  if (currentMusicbox && objectActive) {
+    objectActive = false;
     popup.classList.add("active");
     popup.appendChild(popupContent);
 
@@ -194,8 +193,8 @@ window.addEventListener("click", () => {
     gsap.to(musicbox.position, { duration: 0.8, delay: 0, z: 3 });
     gsap.to(musicbox.rotation, { duration: 0.8, delay: 0, y: 0 });
   }
-  if (currentPyramid && !objectActive && camera.position.y === 8) {
-    objectActive = true;
+  if (currentPyramid && objectActive) {
+    objectActive = false;
     popup.classList.add("active");
     popup.appendChild(popupContent);
 
@@ -207,57 +206,25 @@ window.addEventListener("click", () => {
 });
 
 close.addEventListener("click", () => {
-  if (currentTicket) {
-    currentTicket = null;
-    objectActive = false;
-    popup.classList.remove("active");
-    gsap.to(ticket.position, { duration: 1, delay: 0, x: 3 });
-    gsap.to(ticket.position, { duration: 1, delay: 0, y: -1.1 });
-    gsap.to(ticket.position, { duration: 1, delay: 0, z: -2 });
-    gsap.to(ticket.rotation, {
-      duration: 1,
-      delay: 0,
-      y: Math.PI * -0.5 + 0.5,
-    });
-  }
-  if (currentLeaf) {
-    console.log("leaf");
-    // currentLeaf = null;
-    // objectActive = false;
-    // popup.classList.remove("active");
-    // gsap.to(leaf.position, { duration: 1, delay: 0, x: 3 });
-    // gsap.to(leaf.position, { duration: 1, delay: 0, y: -1.1 });
-    // gsap.to(leaf.position, { duration: 1, delay: 0, z: 1.2 });
-    // gsap.to(leaf.rotation, { duration: 1, delay: 0, y: Math.PI * -0.5 });
-  }
-  // if (currentLipstick) {
-  //   currentLipstick = null;
-  //   objectActive = false;
-  //   popup.classList.remove("active");
-  //   gsap.to(lipstick.position, { duration: 1, delay: 0, x: -4 });
-  //   gsap.to(lipstick.position, { duration: 1, delay: 0, y: -1.2 });
-  //   gsap.to(lipstick.position, { duration: 1, delay: 0, z: -0.8 });
-  //   gsap.to(lipstick.rotation, { duration: 1, delay: 0, y: Math.PI * -0.5 + 0.2 });
-  // }
-  // if (currentMusicbox) {
-  //   currentMusicbox = null;
-  //   objectActive = false;
-  //   popup.classList.remove("active");
-
-  //   gsap.to(musicbox.position, { duration: 1, delay: 0, x: 0 });
-  //   gsap.to(musicbox.position, { duration: 1, delay: 0, y: -1.1 });
-  //   gsap.to(musicbox.position, { duration: 1, delay: 0, z: 0 });
-  //   gsap.to(musicbox.rotation, { duration: 1, delay: 0, y: Math.PI * 0.5 - 0.2 });
-  // }
-  // if (currentPyramid) {
-  //   currentPyramid = null;
-  //   objectActive = false;
-  //   popup.classList.remove("active");
-  //   gsap.to(pyramid.position, { duration: 1, delay: 0, x: -13.5 });
-  //   gsap.to(pyramid.position, { duration: 1, delay: 0, y: 8.5 });
-  //   gsap.to(pyramid.position, { duration: 1, delay: 0, z: -0.5 });
-  //   gsap.to(pyramid.rotation, { duration: 1, delay: 0, y: Math.PI * 0.5 - 0.2 });
-  // }
+  objectActive = true;
+  gsap.to(ticket.position, { duration: 0.8, delay: 0, x: 3, y: -1.1, z: -2 });
+  gsap.to(leaf.position, { duration: 0.8, delay: 0, x: 3, y: -1.1, z: 1.2 });
+  gsap.to(lipstick.position, {
+    duration: 0.8,
+    delay: 0,
+    x: -4,
+    y: -1.2,
+    z: -0.8,
+  });
+  gsap.to(musicbox.position, { duration: 0.8, delay: 0, x: 0, y: -1.1, z: 0 });
+  gsap.to(pyramid.position, {
+    duration: 0.8,
+    delay: 0,
+    x: -13.5,
+    y: 8.5,
+    z: -0.5,
+  });
+  popup.classList.remove("active");
 });
 
 /**

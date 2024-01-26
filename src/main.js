@@ -73,15 +73,13 @@ gltfLoader.load(
     action.setLoop(THREE.LoopOnce);
     scene.add(gltf.scene);
 
-    loadingText.remove()
+    loadingText.remove();
     buttonLoading.classList.remove("inactive");
 
     buttonLoading.classList.add("active");
     buttonLoading.addEventListener("click", () => {
       loadingPage.remove();
     });
-
-
   },
   (xhr) => {
     const loadingPercentage = Math.round((xhr.loaded / xhr.total) * 100);
@@ -186,7 +184,10 @@ window.addEventListener("mousemove", (event) => {
   mouse.y = -((event.clientY / sizes.height) * 2 - 1);
 });
 
-window.addEventListener("click", () => {
+window.addEventListener("click", onClick, false);
+document.addEventListener("click", onClick, false);
+
+function onClick() {
   if (currentValise) {
     gsap.to(camera.position, { duration: 1, delay: 0, z: 6 });
     gsap.to(camera.position, { duration: 0.8, delay: 0, y: 12 });
@@ -243,7 +244,7 @@ window.addEventListener("click", () => {
     gsap.to(pyramid.position, { duration: 0.8, delay: 0, z: 3 });
     gsap.to(pyramid.rotation, { duration: 0.8, delay: 0, y: 0 });
   }
-});
+}
 
 close.addEventListener("click", () => {
   objectActive = true;

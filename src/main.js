@@ -73,12 +73,12 @@ gltfLoader.load(
     action.setLoop(THREE.LoopOnce);
     scene.add(gltf.scene);
 
-    loadingText.remove();
+    loadingText.remove()
     buttonLoading.classList.remove("inactive");
 
     buttonLoading.classList.add("active");
     buttonLoading.addEventListener("click", () => {
-      loadingPage.classList.add("desactive");
+      loadingPage.remove();
     });
 
 

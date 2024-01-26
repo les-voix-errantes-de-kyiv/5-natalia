@@ -197,10 +197,9 @@ window.addEventListener("click", () => {
     objectActive = false;
     popup.classList.add("active");
     popup.appendChild(popupContent);
-
-    gsap.to(pyramid.position, { duration: 0.8, delay: 0, x: -6.5 });
-    gsap.to(pyramid.position, { duration: 0.8, delay: 0, y: 6 });
-    gsap.to(pyramid.position, { duration: 0.8, delay: 0, z: 3.5 });
+    gsap.to(pyramid.position, { duration: 0.8, delay: 0, x: 0 });
+    gsap.to(pyramid.position, { duration: 0.8, delay: 0, y: 12.5});
+    gsap.to(pyramid.position, { duration: 0.8, delay: 0, z: -10 });
     gsap.to(pyramid.rotation, { duration: 0.8, delay: 0, y: 0 });
   }
 });
@@ -208,6 +207,12 @@ window.addEventListener("click", () => {
 close.addEventListener("click", () => {
   objectActive = true;
   currentTicket = null;
+  currentLeaf = null;
+  currentLipstick = null;
+  currentMusicbox = null;
+  currentPyramid = null;
+
+  popup.removeChild(popupContent);
   gsap.to(ticket.position, { duration: 0.8, delay: 0, x: 3, y: -1.1, z: -2 });
   gsap.to(leaf.position, { duration: 0.8, delay: 0, x: 3, y: -1.1, z: 1.2 });
   gsap.to(lipstick.position, {
@@ -217,6 +222,7 @@ close.addEventListener("click", () => {
     y: -1.2,
     z: -0.8,
   });
+  gsap.to(lipstick.rotation, { duration: 0.8, delay: 0, y: Math.PI * -0.5 + 0.2})
   gsap.to(musicbox.position, { duration: 0.8, delay: 0, x: 0, y: -1.1, z: 0 });
   gsap.to(pyramid.position, {
     duration: 0.8,
@@ -225,6 +231,7 @@ close.addEventListener("click", () => {
     y: 8.5,
     z: -0.5,
   });
+  gsap.to(pyramid.rotation, { duration: 0.8, delay: 0, y : Math.PI * 0.5 - 0.2});
   popup.classList.remove("active");
 });
 
@@ -248,8 +255,8 @@ camera.position.z = 20;
 scene.add(camera);
 
 // Controls
-// const controls = new OrbitControls(camera, canvas);
-// controls.enableDamping = true;
+const controls = new OrbitControls(camera, canvas);
+controls.enableDamping = true;
 
 //Animate
 

@@ -21,6 +21,7 @@ const close = document.querySelector(".exit");
 let popupContent = document.createElement("p");
 // Scene
 const scene = new THREE.Scene();
+scene.background.colorSpace("red");
 
 // GLTFLoader
 
@@ -208,7 +209,7 @@ window.addEventListener("click", () => {
     popupContent.innerHTML = textPopup[4];
     popup.appendChild(popupContent);
     gsap.to(pyramid.position, { duration: 0.8, delay: 0, x: 0 });
-    gsap.to(pyramid.position, { duration: 0.8, delay: 0, y: 12.5});
+    gsap.to(pyramid.position, { duration: 0.8, delay: 0, y: 12.5 });
     gsap.to(pyramid.position, { duration: 0.8, delay: 0, z: -10 });
     gsap.to(pyramid.rotation, { duration: 0.8, delay: 0, y: 0 });
   }

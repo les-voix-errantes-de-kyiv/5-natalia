@@ -1,3 +1,8 @@
+@font-face {
+    font-family: "Typewriter";
+    src: url('../static/fonts/JMHTypewriterDry.otf');
+}
+
 *
 {
     margin: 0;
@@ -7,7 +12,7 @@
 html,
 body
 {
-    background-color: black;
+    background-color: white;
     overflow: hidden;
 }
 
@@ -23,24 +28,41 @@ body
 {
     display: none;
     position: absolute;
-    top: 50%;
+    top: 80%;
     left: 50%;
-
+    
 }
 
 .popUp.active
 {
+    width: 70%;
     display: block;
-    transform: translate(-50%, -50%);margin-top: 90px;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.628);
+    border-radius: 0.625rem;
+    backdrop-filter: blur(19px);
+    box-shadow: 0px 0px 5px 0px rgba(71, 36, 3, 0.539);
+    padding: 1.5em;
+}
+
+.popUp p{
+    font-family: 'Typewriter';
+    text-rendering: optimizeLegibility;
+    color: #472403;
+    font-size: 13px;
+}
+
+.popUp hr{
+    margin: 1em 0em;
+    border-bottom: solid #472403 0.5px;
 }
 
 .exit
 {
     position: absolute;
-    top: 0;
-    right: 0;
-    width: 50px;
-    height: 50px;
-    background-color: red;
+    top: -10px;
+    right: -10px;
+    width: 35px;
+    height: 35px;
     cursor: pointer;
 }

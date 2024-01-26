@@ -24,17 +24,25 @@ const scene = new THREE.Scene();
 
 // GLTFLoader
 
+const gltfLoader = new GLTFLoader();
+
+// Animation
+let mixer = null
+let action = null
+
 /**
  * Models
  */
 
-const gltfLoader = new GLTFLoader();
 let valise;
 let ticket;
 let leaf;
 let lipstick;
 let musicbox;
 let pyramid;
+
+
+
 
 gltfLoader.load("/models/ticket.glb", (gltf) => {
   gltf.scene.scale.set(1.1, 1.1, 1.1);
@@ -44,12 +52,16 @@ gltfLoader.load("/models/ticket.glb", (gltf) => {
   scene.add(gltf.scene);
 });
 
-gltfLoader.load("/models/suitcaseV4.glb", (gltf) => {
+gltfLoader.load("/models/suitcaseV6.glb", (gltf) => {
   gltf.scene.scale.set(5, 5, 5);
   gltf.scene.position.set(0, 0, 0);
   gltf.scene.rotation.y = Math.PI * -0.5;
   valise = gltf.scene;
 
+  mixer = new THREE.AnimationMixer(valise)
+  action = mixer.clipAction(gltf.animations[0])
+  action.clampWhenFinished = true
+  action.setLoop(THREE.LoopOnce)
   scene.add(gltf.scene);
 });
 
@@ -149,6 +161,7 @@ window.addEventListener("click", () => {
   if (currentValise) {
     gsap.to(camera.position, { duration: 1, delay: 0, z: 5 });
     gsap.to(camera.position, { duration: 0.8, delay: 0, y: 8 });
+    action.play()
   }
 
   if (currentTicket && objectActive && camera.position.y === 8) {
@@ -268,9 +281,22 @@ renderer.setSize(sizes.width, sizes.height);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
 const clock = new THREE.Clock();
+let previousTime = 0
 
 function animate() {
   const elapsedTime = clock.getElapsedTime();
+  const deltaTime = elapsedTime - previousTime
+  previousTime = elapsedTime
+
+  // Model animation
+  if(mixer)
+  {
+    // the animation happens just once
+    mixer.update(deltaTime)
+    
+    
+  }
+
 
   if (valise) {
     camera.lookAt(valise.position);

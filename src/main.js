@@ -150,8 +150,6 @@ let currentPyramid;
 
 let objectActive = true;
 
-
-
 window.addEventListener("mousemove", (event) => {
   mouse.x = (event.clientX / sizes.width) * 2 - 1;
   mouse.y = -((event.clientY / sizes.height) * 2 - 1);
@@ -183,8 +181,6 @@ window.addEventListener("click", () => {
     gsap.to(leaf.position, { duration: 0.8, delay: 0, y: 6 });
     gsap.to(leaf.position, { duration: 0.8, delay: 0, z: 3.5 });
     gsap.to(leaf.rotation, { duration: 0.8, delay: 0, y: 0 });
-
-    console.log(currentLeaf);
   }
   if (currentLipstick && objectActive && camera.position.y === 8) {
     objectActive = false;
@@ -254,8 +250,8 @@ camera.position.z = 20;
 scene.add(camera);
 
 // Controls
-const controls = new OrbitControls(camera, canvas);
-controls.enableDamping = true;
+// const controls = new OrbitControls(camera, canvas);
+// controls.enableDamping = true;
 
 //Animate
 

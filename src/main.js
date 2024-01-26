@@ -73,19 +73,19 @@ gltfLoader.load(
     action.setLoop(THREE.LoopOnce);
     scene.add(gltf.scene);
 
+    loadingText.remove();
     buttonLoading.classList.remove("inactive");
-    // load.classList.remove("inactive");
 
     buttonLoading.classList.add("active");
-    // load.classList.add("active");
-
     buttonLoading.addEventListener("click", () => {
       loadingPage.classList.add("desactive");
     });
+
+
   },
   (xhr) => {
     const loadingPercentage = Math.round((xhr.loaded / xhr.total) * 100);
-    // loadingText.innerHTML = loadingPercentage + "%";
+    loadingText.innerHTML = "Chargement ...";
     loadingPage.appendChild(loadingText);
     buttonLoading.classList.add("inactive");
     buttonLoading.removeAttribute("disabled");

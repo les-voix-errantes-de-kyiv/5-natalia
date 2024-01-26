@@ -66,3 +66,62 @@ body
     height: 35px;
     cursor: pointer;
 }
+
+
+
+.loadingPage{
+    position: absolute;
+    height: 100svh;
+    width: 100vw;
+    background-color: beige;
+    font-family: 'Typewriter';
+    text-rendering: optimizeLegibility;
+    font-size: 13px; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.desactive{
+    display: none;
+}
+
+.loadingPage h1{
+    text-align: center;
+    margin-top: 5%;
+}
+
+.loadingPage p{
+    text-align: center;
+    margin-top: 5%;
+
+}
+
+.loadingPage__button{
+    color: white;
+    border: none;
+    border-radius: 0.625rem;
+    padding: 0.5em 1em;
+    margin-top: 5%;
+    cursor: pointer;
+    font-family: 'Typewriter';
+    order : 2;
+    max-width: 50%;
+    align-self: center;
+
+}
+
+.loadingPage__button.inactive{
+    background-color: #514e4c ;
+    cursor: auto;
+}
+.loadingPage__button.active{
+    background-color: black ;
+}
+
+.loadingPage img{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    object-fit: cover;
+}

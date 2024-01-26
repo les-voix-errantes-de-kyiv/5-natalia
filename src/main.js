@@ -4,6 +4,10 @@ import gsap from "gsap";
 import textPopup from "./textPopup";
 
 /**
+ * Chargement page
+ */
+
+/**
  * Base
  */
 // Debug
@@ -12,11 +16,21 @@ import textPopup from "./textPopup";
 // Canvas
 const canvas = document.querySelector("canvas.webgl");
 
+//Loading page
+const loadingPage = document.querySelector(".loadingPage");
+let loadingText = document.createElement("p");
+
+let buttonLoading = document.querySelector("button");
+
+
+
 // Pop up
 const popup = document.querySelector(".popUp");
 const close = document.querySelector(".exit");
 
 let popupContent = document.createElement("p");
+
+
 // Scene
 const scene = new THREE.Scene();
 scene.background = new THREE.Color("#FEF3E3");
@@ -61,7 +75,22 @@ gltfLoader.load("/models/suitcaseV6.glb", (gltf) => {
   action.clampWhenFinished = true;
   action.setLoop(THREE.LoopOnce);
   scene.add(gltf.scene);
-});
+
+
+  buttonLoading.classList.remove("inactive");
+  buttonLoading.classList.add("active");
+  buttonLoading.addEventListener("click", () => {
+    loadingPage.classList.add("desactive");
+  });
+  
+}, (xhr) => {
+  const loadingPercentage = Math.round(xhr.loaded / xhr.total * 100)
+  loadingText.innerHTML = loadingPercentage + '%'
+  loadingPage.appendChild(loadingText)
+  buttonLoading.classList.add("inactive");
+
+})
+;
 
 gltfLoader.load("/models/leaf.glb", (gltf) => {
   gltf.scene.scale.set(1, 1, 1);
@@ -277,7 +306,17 @@ scene.add(camera);
 // const controls = new OrbitControls(camera, canvas);
 // controls.enableDamping = true;
 
-//Animate
+/**
+ * Environment map
+ */
+// const rgbeLoader = new RGBELoader()
+// rgbeLoader.load('./textures/environmentMap/grey-background-abstract-lightning-print-brochures-web-ads.hdr', (environmentMap) =>
+// {
+//     environmentMap.mapping = THREE.EquirectangularReflectionMapping
+//     scene.background = environmentMap
+//     scene.environment = environmentMap
+
+// })
 
 /**
  * Renderer

@@ -22,14 +22,11 @@ let loadingText = document.createElement("p");
 
 let buttonLoading = document.querySelector("button");
 
-
-
 // Pop up
 const popup = document.querySelector(".popUp");
 const close = document.querySelector(".exit");
 
 let popupContent = document.createElement("p");
-
 
 // Scene
 const scene = new THREE.Scene();
@@ -62,35 +59,38 @@ gltfLoader.load("/models/ticket.glb", (gltf) => {
   scene.add(gltf.scene);
 });
 
-gltfLoader.load("/models/suitcaseV6.glb", (gltf) => {
-  gltf.scene.scale.set(5, 5, 5);
-  gltf.scene.position.set(0, 0, 0);
-  gltf.scene.rotation.y = Math.PI * -0.5;
-  valise = gltf.scene;
+gltfLoader.load(
+  "/models/suitcaseV6.glb",
+  (gltf) => {
+    gltf.scene.scale.set(5, 5, 5);
+    gltf.scene.position.set(0, 0, 0);
+    gltf.scene.rotation.y = Math.PI * -0.5;
+    valise = gltf.scene;
 
-  valise.receiveShadow = true;
+    mixer = new THREE.AnimationMixer(valise);
+    action = mixer.clipAction(gltf.animations[0]);
+    action.clampWhenFinished = true;
+    action.setLoop(THREE.LoopOnce);
+    scene.add(gltf.scene);
 
-  mixer = new THREE.AnimationMixer(valise);
-  action = mixer.clipAction(gltf.animations[0]);
-  action.clampWhenFinished = true;
-  action.setLoop(THREE.LoopOnce);
-  scene.add(gltf.scene);
+    buttonLoading.classList.remove("inactive");
+    // load.classList.remove("inactive");
 
+    buttonLoading.classList.add("active");
+    // load.classList.add("active");
 
-  buttonLoading.classList.remove("inactive");
-  buttonLoading.classList.add("active");
-  buttonLoading.addEventListener("click", () => {
-    loadingPage.classList.add("desactive");
-  });
-  
-}, (xhr) => {
-  const loadingPercentage = Math.round(xhr.loaded / xhr.total * 100)
-  loadingText.innerHTML = loadingPercentage + '%'
-  loadingPage.appendChild(loadingText)
-  buttonLoading.classList.add("inactive");
-
-})
-;
+    buttonLoading.addEventListener("click", () => {
+      loadingPage.classList.add("desactive");
+    });
+  },
+  (xhr) => {
+    const loadingPercentage = Math.round((xhr.loaded / xhr.total) * 100);
+    // loadingText.innerHTML = loadingPercentage + "%";
+    loadingPage.appendChild(loadingText);
+    buttonLoading.classList.add("inactive");
+    buttonLoading.removeAttribute("disabled");
+  }
+);
 
 gltfLoader.load("/models/leaf.glb", (gltf) => {
   gltf.scene.scale.set(1, 1, 1);
@@ -141,7 +141,6 @@ gltfLoader.load("/models/pyramid.glb", (gltf) => {
  */
 
 const ambientLight = new THREE.AmbientLight(0xffffff, 2);
-ambientLight.castShadow = true;
 scene.add(ambientLight);
 
 const spotLight = new THREE.SpotLight("#F9B856", 30.5, 20, Math.PI * 0.5, 1, 1);
@@ -326,7 +325,6 @@ const renderer = new THREE.WebGLRenderer({
 });
 renderer.setSize(sizes.width, sizes.height);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-renderer.shadowMap.enabled = true;
 
 const clock = new THREE.Clock();
 let previousTime = 0;

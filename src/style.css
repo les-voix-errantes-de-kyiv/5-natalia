@@ -86,6 +86,11 @@ body
     display: none;
 }
 
+.loadingPage{
+    /* background-image: url('./assets/images/ruines.svg'); */
+    background-size: contain;
+}
+
 .loadingPage h1{
     text-align: center;
     margin-top: 5%;
@@ -94,7 +99,6 @@ body
 .loadingPage p{
     text-align: center;
     margin-top: 5%;
-
 }
 
 .loadingPage__button{
@@ -112,16 +116,9 @@ body
 }
 
 .loadingPage__button.inactive{
-    background-color: #514e4c ;
+    background-color: #514e4c34 ;
     cursor: auto;
 }
 .loadingPage__button.active{
     background-color: black ;
-}
-
-.loadingPage img{
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    object-fit: cover;
 }

@@ -1,7 +1,5 @@
 import * as THREE from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
-import GUI from "lil-gui";
 import gsap from "gsap";
 import textPopup from "./textPopup";
 
@@ -21,15 +19,15 @@ const close = document.querySelector(".exit");
 let popupContent = document.createElement("p");
 // Scene
 const scene = new THREE.Scene();
-scene.background.colorSpace("red");
+scene.background = new THREE.Color("#FEF3E3");
 
 // GLTFLoader
 
 const gltfLoader = new GLTFLoader();
 
 // Animation
-let mixer = null
-let action = null
+let mixer = null;
+let action = null;
 
 /**
  * Models
@@ -41,9 +39,6 @@ let leaf;
 let lipstick;
 let musicbox;
 let pyramid;
-
-
-
 
 gltfLoader.load("/models/ticket.glb", (gltf) => {
   gltf.scene.scale.set(1.1, 1.1, 1.1);
@@ -59,10 +54,12 @@ gltfLoader.load("/models/suitcaseV6.glb", (gltf) => {
   gltf.scene.rotation.y = Math.PI * -0.5;
   valise = gltf.scene;
 
-  mixer = new THREE.AnimationMixer(valise)
-  action = mixer.clipAction(gltf.animations[0])
-  action.clampWhenFinished = true
-  action.setLoop(THREE.LoopOnce)
+  valise.receiveShadow = true;
+
+  mixer = new THREE.AnimationMixer(valise);
+  action = mixer.clipAction(gltf.animations[0]);
+  action.clampWhenFinished = true;
+  action.setLoop(THREE.LoopOnce);
   scene.add(gltf.scene);
 });
 
@@ -95,7 +92,7 @@ gltfLoader.load("/models/musicbox.glb", (gltf) => {
 
 gltfLoader.load("/models/pyramid.glb", (gltf) => {
   gltf.scene.scale.set(0.75, 0.75, 0.75);
-  gltf.scene.position.set(-13.5, 9, -0.5);
+  gltf.scene.position.set(-3, -0.8, 1.5);
   gltf.scene.rotation.y = Math.PI * 0.5 - 0.2;
   pyramid = gltf.scene;
 
@@ -114,8 +111,13 @@ gltfLoader.load("/models/pyramid.glb", (gltf) => {
  * Lights
  */
 
-const ambientLight = new THREE.AmbientLight(0xffffff, 4);
+const ambientLight = new THREE.AmbientLight(0xffffff, 2);
+ambientLight.castShadow = true;
 scene.add(ambientLight);
+
+const spotLight = new THREE.SpotLight("#F9B856", 30.5, 20, Math.PI * 0.5, 1, 1);
+spotLight.position.set(0, 9, 3);
+scene.add(spotLight);
 
 /**
  * Sizes
@@ -158,12 +160,12 @@ window.addEventListener("mousemove", (event) => {
 
 window.addEventListener("click", () => {
   if (currentValise) {
-    gsap.to(camera.position, { duration: 1, delay: 0, z: 5 });
-    gsap.to(camera.position, { duration: 0.8, delay: 0, y: 8 });
-    action.play()
+    gsap.to(camera.position, { duration: 1, delay: 0, z: 6 });
+    gsap.to(camera.position, { duration: 0.8, delay: 0, y: 12 });
+    action.play();
   }
 
-  if (currentTicket && objectActive && camera.position.y === 8) {
+  if (currentTicket && objectActive && camera.position.y === 12) {
     objectActive = false;
     popup.classList.add("active");
     popupContent.innerHTML = textPopup[0];
@@ -173,7 +175,7 @@ window.addEventListener("click", () => {
     gsap.to(ticket.position, { duration: 0.8, delay: 0, z: 3.5 });
     gsap.to(ticket.rotation, { duration: 0.8, delay: 0, y: 0 });
   }
-  if (currentLeaf && objectActive && camera.position.y === 8) {
+  if (currentLeaf && objectActive && camera.position.y === 12) {
     objectActive = false;
     popup.classList.add("active");
     popupContent.innerHTML = textPopup[1];
@@ -183,7 +185,7 @@ window.addEventListener("click", () => {
     gsap.to(leaf.position, { duration: 0.8, delay: 0, z: 3.5 });
     gsap.to(leaf.rotation, { duration: 0.8, delay: 0, y: 0 });
   }
-  if (currentLipstick && objectActive && camera.position.y === 8) {
+  if (currentLipstick && objectActive && camera.position.y === 12) {
     objectActive = false;
     popup.classList.add("active");
     popupContent.innerHTML = textPopup[2];
@@ -193,7 +195,7 @@ window.addEventListener("click", () => {
     gsap.to(lipstick.position, { duration: 0.8, delay: 0, z: 3.5 });
     gsap.to(lipstick.rotation, { duration: 0.8, delay: 0, y: 0 });
   }
-  if (currentMusicbox && objectActive && camera.position.y === 8) {
+  if (currentMusicbox && objectActive && camera.position.y === 12) {
     objectActive = false;
     popup.classList.add("active");
     popupContent.innerHTML = textPopup[3];
@@ -203,14 +205,14 @@ window.addEventListener("click", () => {
     gsap.to(musicbox.position, { duration: 0.8, delay: 0, z: 3 });
     gsap.to(musicbox.rotation, { duration: 0.8, delay: 0, y: 0 });
   }
-  if (currentPyramid && objectActive && camera.position.y === 8) {
+  if (currentPyramid && objectActive && camera.position.y === 12) {
     objectActive = false;
     popup.classList.add("active");
     popupContent.innerHTML = textPopup[4];
     popup.appendChild(popupContent);
     gsap.to(pyramid.position, { duration: 0.8, delay: 0, x: 0 });
-    gsap.to(pyramid.position, { duration: 0.8, delay: 0, y: 12.5 });
-    gsap.to(pyramid.position, { duration: 0.8, delay: 0, z: -10 });
+    gsap.to(pyramid.position, { duration: 0.8, delay: 0, y: 4 });
+    gsap.to(pyramid.position, { duration: 0.8, delay: 0, z: 3 });
     gsap.to(pyramid.rotation, { duration: 0.8, delay: 0, y: 0 });
   }
 });
@@ -226,11 +228,32 @@ close.addEventListener("click", () => {
   popup.removeChild(popupContent);
   gsap.to(ticket.position, { duration: 0.8, delay: 0, x: 3, y: -0.7, z: -2 });
   gsap.to(leaf.position, { duration: 0.8, delay: 0, x: 3, y: -0.7, z: 1.2 });
-  gsap.to(lipstick.position, {duration: 0.8,delay: 0, x: -4, y: -0.8, z: -0.8,});
-  gsap.to(lipstick.rotation, { duration: 0.8, delay: 0, y: Math.PI * -0.5 + 0.2})
+  gsap.to(lipstick.position, {
+    duration: 0.8,
+    delay: 0,
+    x: -4,
+    y: -0.8,
+    z: -0.8,
+  });
+  gsap.to(lipstick.rotation, {
+    duration: 0.8,
+    delay: 0,
+    y: Math.PI * -0.5 + 0.2,
+  });
   gsap.to(musicbox.position, { duration: 0.8, delay: 0, x: 0, y: -0.8, z: 0 });
-  gsap.to(pyramid.position, { duration: 0.8, delay: 0, x: -13.5, y: 9, z: -0.5,});
-  gsap.to(pyramid.rotation, { duration: 0.8, delay: 0, y : Math.PI * 0.5 - 0.2});
+  gsap.to(pyramid.position, {
+    duration: 0.8,
+    delay: 0,
+    x: -3,
+    y: -0.8,
+    z: 1.5,
+  });
+
+  gsap.to(pyramid.rotation, {
+    duration: 0.8,
+    delay: 0,
+    y: Math.PI * 0.5 - 0.2,
+  });
   popup.classList.remove("active");
 });
 
@@ -246,7 +269,7 @@ const camera = new THREE.PerspectiveCamera(
 );
 camera.position.x = 0;
 camera.position.y = 1;
-camera.position.z = 20;
+camera.position.z = 30;
 
 scene.add(camera);
 
@@ -264,24 +287,30 @@ const renderer = new THREE.WebGLRenderer({
 });
 renderer.setSize(sizes.width, sizes.height);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.shadowMap.enabled = true;
 
 const clock = new THREE.Clock();
-let previousTime = 0
+let previousTime = 0;
+
+// const rgbeLoader = new RGBELoader();
+
+// rgbeLoader.load("./map/industrial_sunset_puresky_1k.hdr", (environmentMap) => {
+//   environmentMap.mapping = THREE.EquirectangularReflectionMapping;
+
+//   scene.background = environmentMap;
+//   scene.environment = environmentMap;
+// });
 
 function animate() {
   const elapsedTime = clock.getElapsedTime();
-  const deltaTime = elapsedTime - previousTime
-  previousTime = elapsedTime
+  const deltaTime = elapsedTime - previousTime;
+  previousTime = elapsedTime;
 
   // Model animation
-  if(mixer)
-  {
+  if (mixer) {
     // the animation happens just once
-    mixer.update(deltaTime)
-    
-    
+    mixer.update(deltaTime);
   }
-
 
   if (valise) {
     camera.lookAt(valise.position);

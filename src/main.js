@@ -3,6 +3,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import GUI from "lil-gui";
 import gsap from "gsap";
+import textPopup from "./textPopup";
 
 /**
  * Base
@@ -18,9 +19,6 @@ const popup = document.querySelector(".popUp");
 const close = document.querySelector(".exit");
 
 let popupContent = document.createElement("p");
-popupContent.innerHTML =
-  "Ce ticket de cinéma témoigne de mon passé en Ukraine, un souvenir que j'ai emporté avec moi en fuyant la guerre. Avant à Kyiv , que ce soit en compagnie de proches ou seul, j'adorais m'y rendre. <br> <br>This cinema ticket bears witness to my past in Ukraine, a memory that I took with me when fleeing the war. Before in Kyiv, whether in the company of loved ones or alone, I loved going there.";
-
 // Scene
 const scene = new THREE.Scene();
 
@@ -128,7 +126,7 @@ window.addEventListener("resize", () => {
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 });
 
-//Mouse Moove
+// Mouse Moove
 
 const mouse = new THREE.Vector2();
 let currentValise;
@@ -139,6 +137,8 @@ let currentMusicbox;
 let currentPyramid;
 
 let objectActive = true;
+
+
 
 window.addEventListener("mousemove", (event) => {
   mouse.x = (event.clientX / sizes.width) * 2 - 1;
@@ -154,8 +154,8 @@ window.addEventListener("click", () => {
   if (currentTicket && objectActive && camera.position.y === 8) {
     objectActive = false;
     popup.classList.add("active");
+    popupContent.innerHTML = textPopup[0];
     popup.appendChild(popupContent);
-
     gsap.to(ticket.position, { duration: 0.8, delay: 0, x: -0.5 });
     gsap.to(ticket.position, { duration: 0.8, delay: 0, y: 6 });
     gsap.to(ticket.position, { duration: 0.8, delay: 0, z: 3.5 });
@@ -164,8 +164,8 @@ window.addEventListener("click", () => {
   if (currentLeaf && objectActive && camera.position.y === 8) {
     objectActive = false;
     popup.classList.add("active");
+    popupContent.innerHTML = textPopup[1];
     popup.appendChild(popupContent);
-
     gsap.to(leaf.position, { duration: 0.8, delay: 0, x: 0 });
     gsap.to(leaf.position, { duration: 0.8, delay: 0, y: 6 });
     gsap.to(leaf.position, { duration: 0.8, delay: 0, z: 3.5 });
@@ -176,8 +176,8 @@ window.addEventListener("click", () => {
   if (currentLipstick && objectActive && camera.position.y === 8) {
     objectActive = false;
     popup.classList.add("active");
+    popupContent.innerHTML = textPopup[2];
     popup.appendChild(popupContent);
-
     gsap.to(lipstick.position, { duration: 0.8, delay: 0, x: 0.5 });
     gsap.to(lipstick.position, { duration: 0.8, delay: 0, y: 5 });
     gsap.to(lipstick.position, { duration: 0.8, delay: 0, z: 3.5 });
@@ -186,8 +186,8 @@ window.addEventListener("click", () => {
   if (currentMusicbox && objectActive && camera.position.y === 8) {
     objectActive = false;
     popup.classList.add("active");
+    popupContent.innerHTML = textPopup[3];
     popup.appendChild(popupContent);
-
     gsap.to(musicbox.position, { duration: 0.8, delay: 0, x: 0 });
     gsap.to(musicbox.position, { duration: 0.8, delay: 0, y: 4 });
     gsap.to(musicbox.position, { duration: 0.8, delay: 0, z: 3 });
@@ -196,6 +196,7 @@ window.addEventListener("click", () => {
   if (currentPyramid && objectActive && camera.position.y === 8) {
     objectActive = false;
     popup.classList.add("active");
+    popupContent.innerHTML = textPopup[4];
     popup.appendChild(popupContent);
     gsap.to(pyramid.position, { duration: 0.8, delay: 0, x: 0 });
     gsap.to(pyramid.position, { duration: 0.8, delay: 0, y: 12.5});
@@ -249,14 +250,11 @@ camera.position.x = 0;
 camera.position.y = 1;
 camera.position.z = 20;
 
-// camera.position.y = 3;
-// camera.position.z = 2;
-
 scene.add(camera);
 
 // Controls
-const controls = new OrbitControls(camera, canvas);
-controls.enableDamping = true;
+// const controls = new OrbitControls(camera, canvas);
+// controls.enableDamping = true;
 
 //Animate
 

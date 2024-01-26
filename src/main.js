@@ -151,7 +151,7 @@ window.addEventListener("click", () => {
     gsap.to(camera.position, { duration: 0.8, delay: 0, y: 8 });
   }
 
-  if (currentTicket && objectActive) {
+  if (currentTicket && objectActive && camera.position.y === 8) {
     objectActive = false;
     popup.classList.add("active");
     popup.appendChild(popupContent);
@@ -161,7 +161,7 @@ window.addEventListener("click", () => {
     gsap.to(ticket.position, { duration: 0.8, delay: 0, z: 3.5 });
     gsap.to(ticket.rotation, { duration: 0.8, delay: 0, y: 0 });
   }
-  if (currentLeaf && objectActive) {
+  if (currentLeaf && objectActive && camera.position.y === 8) {
     objectActive = false;
     popup.classList.add("active");
     popup.appendChild(popupContent);
@@ -173,7 +173,7 @@ window.addEventListener("click", () => {
 
     console.log(currentLeaf);
   }
-  if (currentLipstick && objectActive) {
+  if (currentLipstick && objectActive && camera.position.y === 8) {
     objectActive = false;
     popup.classList.add("active");
     popup.appendChild(popupContent);
@@ -183,7 +183,7 @@ window.addEventListener("click", () => {
     gsap.to(lipstick.position, { duration: 0.8, delay: 0, z: 3.5 });
     gsap.to(lipstick.rotation, { duration: 0.8, delay: 0, y: 0 });
   }
-  if (currentMusicbox && objectActive) {
+  if (currentMusicbox && objectActive && camera.position.y === 8) {
     objectActive = false;
     popup.classList.add("active");
     popup.appendChild(popupContent);
@@ -193,7 +193,7 @@ window.addEventListener("click", () => {
     gsap.to(musicbox.position, { duration: 0.8, delay: 0, z: 3 });
     gsap.to(musicbox.rotation, { duration: 0.8, delay: 0, y: 0 });
   }
-  if (currentPyramid && objectActive) {
+  if (currentPyramid && objectActive && camera.position.y === 8) {
     objectActive = false;
     popup.classList.add("active");
     popup.appendChild(popupContent);
@@ -207,6 +207,7 @@ window.addEventListener("click", () => {
 
 close.addEventListener("click", () => {
   objectActive = true;
+  currentTicket = null;
   gsap.to(ticket.position, { duration: 0.8, delay: 0, x: 3, y: -1.1, z: -2 });
   gsap.to(leaf.position, { duration: 0.8, delay: 0, x: 3, y: -1.1, z: 1.2 });
   gsap.to(lipstick.position, {

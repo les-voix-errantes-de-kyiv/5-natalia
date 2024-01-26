@@ -46,7 +46,7 @@ let pyramid;
 
 gltfLoader.load("/models/ticket.glb", (gltf) => {
   gltf.scene.scale.set(1.1, 1.1, 1.1);
-  gltf.scene.position.set(3, -1.1, -2);
+  gltf.scene.position.set(3, -0.7, -2);
   gltf.scene.rotation.y = Math.PI * -0.5 + 0.5;
   ticket = gltf.scene;
   scene.add(gltf.scene);
@@ -67,7 +67,7 @@ gltfLoader.load("/models/suitcaseV6.glb", (gltf) => {
 
 gltfLoader.load("/models/leaf.glb", (gltf) => {
   gltf.scene.scale.set(1, 1, 1);
-  gltf.scene.position.set(3, -1.1, 1.2);
+  gltf.scene.position.set(3, -0.7, 1.2);
   gltf.scene.rotation.y = Math.PI * -0.5;
   leaf = gltf.scene;
 
@@ -76,7 +76,7 @@ gltfLoader.load("/models/leaf.glb", (gltf) => {
 
 gltfLoader.load("/models/lipstick.glb", (gltf) => {
   gltf.scene.scale.set(0.4, 0.4, 0.4);
-  gltf.scene.position.set(-4, -1.2, -0.8);
+  gltf.scene.position.set(-4, -0.8, -0.8);
   gltf.scene.rotation.y = Math.PI * -0.5 + 0.2;
   lipstick = gltf.scene;
 
@@ -85,7 +85,7 @@ gltfLoader.load("/models/lipstick.glb", (gltf) => {
 
 gltfLoader.load("/models/musicbox.glb", (gltf) => {
   gltf.scene.scale.set(6.7, 6.7, 6.7);
-  gltf.scene.position.set(0, -1.1, 0);
+  gltf.scene.position.set(0, -0.8, 0);
   gltf.scene.rotation.y = Math.PI * 0.5 - 0.2;
   musicbox = gltf.scene;
 
@@ -94,7 +94,7 @@ gltfLoader.load("/models/musicbox.glb", (gltf) => {
 
 gltfLoader.load("/models/pyramid.glb", (gltf) => {
   gltf.scene.scale.set(0.75, 0.75, 0.75);
-  gltf.scene.position.set(-13.5, 8.5, -0.5);
+  gltf.scene.position.set(-13.5, 9, -0.5);
   gltf.scene.rotation.y = Math.PI * 0.5 - 0.2;
   pyramid = gltf.scene;
 
@@ -227,24 +227,12 @@ close.addEventListener("click", () => {
   currentPyramid = null;
 
   popup.removeChild(popupContent);
-  gsap.to(ticket.position, { duration: 0.8, delay: 0, x: 3, y: -1.1, z: -2 });
-  gsap.to(leaf.position, { duration: 0.8, delay: 0, x: 3, y: -1.1, z: 1.2 });
-  gsap.to(lipstick.position, {
-    duration: 0.8,
-    delay: 0,
-    x: -4,
-    y: -1.2,
-    z: -0.8,
-  });
+  gsap.to(ticket.position, { duration: 0.8, delay: 0, x: 3, y: -0.7, z: -2 });
+  gsap.to(leaf.position, { duration: 0.8, delay: 0, x: 3, y: -0.7, z: 1.2 });
+  gsap.to(lipstick.position, {duration: 0.8,delay: 0, x: -4, y: -0.8, z: -0.8,});
   gsap.to(lipstick.rotation, { duration: 0.8, delay: 0, y: Math.PI * -0.5 + 0.2})
-  gsap.to(musicbox.position, { duration: 0.8, delay: 0, x: 0, y: -1.1, z: 0 });
-  gsap.to(pyramid.position, {
-    duration: 0.8,
-    delay: 0,
-    x: -13.5,
-    y: 8.5,
-    z: -0.5,
-  });
+  gsap.to(musicbox.position, { duration: 0.8, delay: 0, x: 0, y: -0.8, z: 0 });
+  gsap.to(pyramid.position, { duration: 0.8, delay: 0, x: -13.5, y: 9, z: -0.5,});
   gsap.to(pyramid.rotation, { duration: 0.8, delay: 0, y : Math.PI * 0.5 - 0.2});
   popup.classList.remove("active");
 });
@@ -266,8 +254,8 @@ camera.position.z = 20;
 scene.add(camera);
 
 // Controls
-// const controls = new OrbitControls(camera, canvas);
-// controls.enableDamping = true;
+const controls = new OrbitControls(camera, canvas);
+controls.enableDamping = true;
 
 //Animate
 
